@@ -5,11 +5,12 @@ RUN apt-get update
 RUN apt-get install -y git vim g++ gdb
 
 RUN apt-get install -y wget lsb-release apt-transport-https
+
+# -- Install Clang, Cmake & other useful build tools
+
 RUN wget -qO - https://packages.irods.org/irods-signing-key.asc | apt-key add - && \
     echo "deb [arch=amd64] https://packages.irods.org/apt/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/renci-irods.list && \
     apt-get update
-
-#RUN apt-cache search irods-externals.\* >/tmp/irods_externals_packages.txt
 
 RUN apt-get install -y  \
     irods-externals-boost1.60.0-0       \
@@ -28,6 +29,8 @@ RUN apt-get install -y  \
 
 WORKDIR /root
 
+# -- Install and compile debug vsn of libcxx
+
 RUN git clone http://github.com/llvm/llvm-project
 
 RUN apt-get install make
@@ -39,8 +42,12 @@ RUN cd llvm-project && \
         -G "Unix Makefiles"  -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" ../llvm && \
     make -j3 cxx cxxabi
 
+# -- Compile a c++ Demo program
+
 COPY demo.cpp .
 RUN  /opt/irods-externals/clang6.0-0/bin/clang++ -Wl,-rpath=$HOME/llvm-project/build/lib demo.cpp -stdlib=libc++ -g -O0 -std=c++17
+
+# -- Install & configure the pretty-printers
 
 RUN  git clone https://github.com/koutheir/libcxx-pretty-printers
 RUN  PP_SRC_DIR=~/libcxx-pretty-printers/src && \
