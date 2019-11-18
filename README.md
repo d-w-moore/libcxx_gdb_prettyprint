@@ -63,7 +63,7 @@ $2 =
 
 We need to modify (or find a working version of) Koutheir's pretty-printers such that it works for ***std::strings***.
 
-*(They work fine for **std::vector** . This is proven if we rename or delete ~/.gdbinit, because we'll see that the **myvec** variable is printed out considerably more verbose form in their absence: )*
+*(They work fine for **std::vector** . This is proven if we rename or delete ~/.gdbinit, because we'll see that the **myvec** variable is printed out in considerably more verbose form in their absence: )*
 
 ```
 (gdb) p myvec
