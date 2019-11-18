@@ -4,7 +4,7 @@
 
    - Requires : Docker CE
    - Needs improvement.  See below. std::vec displays but std::string is broken.
-   
+
 ### Build demo
 
 ```
@@ -58,3 +58,18 @@ Python Exception <class 'gdb.error'> Cannot convert value to long.:
 $2 =
 (gdb)
 ```
+
+### Not Quite Right ...
+
+If we rename or delete ~/.gdbinit,  we see how myvec is printed out in the absence of the pretty printers...
+
+because  *std::vector* dumps look considerably more verbose:
+```
+(gdb) p myvec
+$1 = {<std::__1::__vector_base<int, std::__1::allocator<int> >> = {<std::__1::__vector_base_common<true>> = {<No data fields>}, __begin_ = 0x605010,
+    __end_ = 0x605018, __end_cap_ = {<std::__1::__compressed_pair_elem<int*, 0, false>> = {
+        __value_ = 0x605018}, <std::__1::__compressed_pair_elem<std::__1::allocator<int>, 1, true>> = {<std::__1::allocator<int>> = {<No data fields>}, <No data fields>}, <No data fields>}}, <No data fields>}
+
+```
+
+So we know it's working (somewhat) for vectors.  We just need to modify (or find working version of) Koutheir's printers.py that works for *std::strings*.
