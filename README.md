@@ -61,9 +61,10 @@ $2 =
 
 ### Not Quite Right ...
 
-If we rename or delete ~/.gdbinit,  we see how myvec is printed out in the absence of the pretty printers...
+We need to modify (or find a working version of) Koutheir's pretty-printers such that it works for ***std::strings***.
 
-because  *std::vector* dumps look considerably more verbose:
+*(They work fine for **std::vector** . This is proven if we rename or delete ~/.gdbinit, because we'll see that the **myvec** variable is printed out considerably more verbose form in their absence: )*
+
 ```
 (gdb) p myvec
 $1 = {<std::__1::__vector_base<int, std::__1::allocator<int> >> = {<std::__1::__vector_base_common<true>> = {<No data fields>}, __begin_ = 0x605010,
@@ -72,4 +73,3 @@ $1 = {<std::__1::__vector_base<int, std::__1::allocator<int> >> = {<std::__1::__
 
 ```
 
-So we know it's working (somewhat) for vectors.  We just need to modify (or find working version of) Koutheir's printers.py that works for *std::strings*.
