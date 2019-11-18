@@ -1,7 +1,10 @@
 # libcxx_gdb_prettyprint
 
-Demo session
+## Demonstration
 
+   - Requires : Docker CE
+
+### Build demo
 
 ```
 $ sh gdb_docker_bld.sh
@@ -13,8 +16,11 @@ Step 2/14 : RUN apt-get update
  ...
 Successfully tagged gdb_docker:latest
 
-#=====================================================
- 
+```
+
+### Run demo
+
+```
 $ sh gdb_docker_run.sh
 
 root@b8c44f63f30f:~# gdb a.out
@@ -37,8 +43,6 @@ Reading symbols from a.out...done.
 10
 (gdb) b 9
 Breakpoint 1 at 0x401568: file demo.cpp, line 9.
-(gdb) c
-The program is not being run.
 (gdb) r
 Starting program: /root/a.out
 [Thread debugging using libthread_db enabled]
