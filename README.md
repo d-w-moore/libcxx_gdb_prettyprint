@@ -3,7 +3,8 @@
 ## Demonstration
 
    - Requires : Docker CE
-
+   - Needs improvement.  See below. std::vec displays but std::string is broken.
+   
 ### Build demo
 
 ```
