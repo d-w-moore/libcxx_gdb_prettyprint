@@ -12,6 +12,10 @@ RUN wget -qO - https://packages.irods.org/irods-signing-key.asc | apt-key add - 
     echo "deb [arch=amd64] https://packages.irods.org/apt/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/renci-irods.list && \
     apt-get update
 
+
+
+
+
 RUN apt-get install -y  \
     irods-externals-boost1.60.0-0       \
     irods-externals-boost1.67.0-0       \
@@ -41,6 +45,18 @@ RUN cd llvm-project && \
     /opt/irods-externals/cmake3.11.4-0/bin/cmake \
         -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" ../llvm && \
     make -j3 cxx cxxabi
+
+### rr begin
+RUN apt-get install -y ccache cmake make g++-multilib gdb pkg-config \
+      coreutils python3-pexpect manpages-dev git ninja-build capnproto \
+      libcapnp-dev
+
+RUN git clone http://github.com/mozilla/rr && \
+    mkdir obj && cd obj && \
+    cmake ../rr && \
+    make -j8 && \
+    make install
+### rr end
 
 # -- Compile a c++ Demo program
 
