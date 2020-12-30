@@ -40,6 +40,7 @@ RUN git clone http://github.com/llvm/llvm-project
 RUN apt-get install make
 
 RUN cd llvm-project && \
+    git checkout llvmorg-6.0.0 && \
     mkdir build && \
     cd build && \
     /opt/irods-externals/cmake3.11.4-0/bin/cmake \
